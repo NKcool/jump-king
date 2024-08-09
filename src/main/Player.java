@@ -1,8 +1,7 @@
 package main;
+
 import java.awt.Graphics2D;
 import java.awt.Color;
-
-
 
 public class Player {
     private int x, y;
@@ -10,6 +9,8 @@ public class Player {
     private final int gravity = 1;
     private final int groundLevel = 520;
     private int tileSize;
+    private int jumpHeight = -20;
+
     public Player(int x, int y,int tileSize) {
         this.x = x;
         this.y = y;
@@ -31,6 +32,11 @@ public class Player {
             g2.fillRect(x, y, tileSize, tileSize);
         }
         public void jump() {
-            yVelocity = -15;
+            jumpHeight = -20;
+            yVelocity = jumpHeight;
+        }
+        public void jump(int i) {
+            yVelocity = jumpHeight;
+            jumpHeight -= i;
         }
 }
