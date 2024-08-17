@@ -1,5 +1,4 @@
 package main;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -9,9 +8,7 @@ import java.io.InputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioInputStream;
-
 public class Player {
-
     private int x, y;
     private int yVelocity = 0;
     private final int gravity = 1;
@@ -19,7 +16,6 @@ public class Player {
     private int tileSize;
     private int jumpHeight = -17;
     private BufferedImage birdImage;
-
     public void playSound(String soundName) {
         try (InputStream audioSrc = getClass().getResourceAsStream("/resources/accets/Sounds/"+soundName);
              InputStream bufferedIn = new BufferedInputStream(audioSrc);
@@ -31,19 +27,16 @@ public class Player {
             System.out.println("Error playing sound: " + e.getMessage());
         }
     }
-
     public Player(int x, int y, int tileSize) {
         this.x = x;
         this.y = y;
-        this.tileSize = 2 * tileSize;
-
+        this.tileSize = tileSize+10;
         try {
             birdImage = ImageIO.read(getClass().getResource("/resources/accets/Images/bird.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     public void update() {
         y += yVelocity;
         yVelocity += gravity;
@@ -53,7 +46,6 @@ public class Player {
             yVelocity = 0;
         }
     }
-
     public void draw(Graphics2D g2) {
         double rotationAngle = 0;
         if (yVelocity > 0) {
@@ -69,24 +61,14 @@ public class Player {
             g2.fillRect(x, y, tileSize, tileSize);
         }
     }
-
     public void jump() {
         if(y > 0)
         yVelocity = jumpHeight;
-        
-        // playSound("jumpSound.wav");
-
     }
-
     public Rectangle getBounds() {
         return new Rectangle(x, y, tileSize, tileSize);
     }
-
     public int getX() {
         return x;
-    }
-
-    public class SoundPlayer {
-
     }
 }
